@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Post Likes</title>
+</head>
+
+<body>
+    <h1>LinkedIn Post Likes</h1>
+    <!-- <div>
+        {{see_soup}}
+    </div> -->
+    <ul>
+        {% for post_url, like_count in zip(post_urls, like_counts) %}
+        <li>{{ post_url }} - Like count: {{ like_count }}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
