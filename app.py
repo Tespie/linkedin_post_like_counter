@@ -61,6 +61,10 @@ def index():
          "postUrl" : "https://www.linkedin.com/posts/nikunj-patel-68b292150_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140740425388118016-JYt2?utm_source=share&utm_medium=member_desktop"
         },
         {
+         "name" : "ravi-lalwani",
+         "postUrl" : "https://www.linkedin.com/posts/ravi-lalwani-4907991a4_jawai-rajasthan-leopard-activity-7141250234470367232-Lw9e?utm_source=share&utm_medium=member_android"
+        },
+        {
          "name" : "rajan-patel",
          "postUrl" : "https://www.linkedin.com/posts/rajan-patel-361b4a117_hey-connection-like-repost-share-like-activity-7143477583454654464-xqD6?utm_source=share&utm_medium=member_desktop"
         },
