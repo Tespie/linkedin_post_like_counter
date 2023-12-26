@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 import requests
+import json
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -69,50 +70,9 @@ def get_linkedin_post_comments(post_url):
 
 @app.route('/')
 def index():
-    post_data = [
-        {
-         "name" : "jignect-technologies",
-         "postUrl" : "https://www.linkedin.com/posts/jignect-technologies_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140621156784549888-FtPm?utm_source=share&utm_medium=member_desktop"
-        },
-        {
-         "name" : "nikunj-patel",
-         "postUrl" : "https://www.linkedin.com/posts/nikunj-patel-68b292150_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140740425388118016-JYt2?utm_source=share&utm_medium=member_desktop"
-        },
-        {
-         "name" : "ravi-lalwani",
-         "postUrl" : "https://www.linkedin.com/posts/ravi-lalwani-4907991a4_jawai-rajasthan-leopard-activity-7141250234470367232-Lw9e?utm_source=share&utm_medium=member_android"
-        },
-        {
-         "name" : "rajan-patel",
-         "postUrl" : "https://www.linkedin.com/posts/rajan-patel-361b4a117_hey-connection-like-repost-share-like-activity-7143477583454654464-xqD6?utm_source=share&utm_medium=member_desktop"
-        },
-        {
-         "name" : "nehal-lunagariya",
-         "postUrl" : "https://www.linkedin.com/posts/nehal-lunagariya-229683179_jignecttechnologies-lifeatjignect-jignectadventure-activity-7141449662976237568-Rmsx?utm_source=share&utm_medium=member_desktop"
-        },
-        {
-         "name" : "raj-lunagariya",
-         "postUrl" : "https://www.linkedin.com/posts/raj-lunagariya-67631b284_im-happy-to-share-that-i-am-starting-a-new-activity-7115165744950108160--Nlx?utm_source=share&utm_medium=member_desktop"
-        },
-        {
-         "name" : "hely-patel",
-         "postUrl" : "https://www.linkedin.com/posts/hely-patel-634528228_jawaileopardsafari-natureunleashed-leopardencounter-activity-7141119418192887809-IRYm?utm_source=share&utm_medium=member_desktop"
-        },
-        {
-         "name" : "raj-vivek",
-         "postUrl" : "https://www.linkedin.com/posts/raj-vivek-878395246_lifeatjignect-jignectadventure-rajasthanwonders-activity-7141432688577601537-4dKK?utm_source=share&utm_medium=member_android"
-        }
-        
-        # "https://www.linkedin.com/posts/nikunj-patel-68b292150_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140740425388118016-JYt2?utm_source=share&utm_medium=member_desktop",
-        # "https://www.linkedin.com/posts/rajan-patel-361b4a117_hey-connection-like-repost-share-like-activity-7143477583454654464-xqD6?utm_source=share&utm_medium=member_desktop",
-        # "https://www.linkedin.com/posts/drashti-mehta-199093209_ketalystcertification-continuouslearning-activity-7140619174761906176-Z974?utm_source=share&utm_medium=member_desktop"
-        # "https://www.linkedin.com/posts/activity-7141449662976237568-Qpdv?utm_source=share&utm_medium=member_desktop",
-    ]
-
-    # OLD
-    # like_counts = [get_linkedin_post_likes(url) for url in post_urls]
-    # return render_template('index.html', post_urls=post_urls, like_counts=like_counts,zip = zip)
-
+    file_path = "assets\\staticData\\post_data.json"
+    with open(file_path, 'r', encoding='utf-8') as json_file:
+        post_data = json.load(json_file)
 
     like_counts = [get_linkedin_post_likes(data["postUrl"]) for data in post_data]
     comment_counts = [get_linkedin_post_comments(data["postUrl"]) for data in post_data]
@@ -120,11 +80,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-    # "https://www.linkedin.com/posts/your_username_your_post_id1",
-        # "https://www.linkedin.com/posts/your_username_your_post_id2",
-        # "https://www.linkedin.com/posts/nikunj-patel-68b292150_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140740425388118016-JYt2?utm_source=share&utm_medium=member_desktop"
-        # Add more post URLs as needed
