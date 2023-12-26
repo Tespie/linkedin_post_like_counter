@@ -43,8 +43,19 @@ def get_linkedin_post_likes(post_url):
         # return like_element
         # return soup
 
-        # gives count from the parser - WORKING
-        like_count = soup.find('span', {'class' :'font-normal ml-0.5'}).text 
+        # Find the element containing the like count
+        like_count_element = soup.find('span', {'class' :'font-normal ml-0.5'})
+
+        # # gives count from the parser - WORKING
+        # like_count = soup.find('span', {'class' :'font-normal ml-0.5'}).text 
+
+         # Check if the element is found
+        if like_count_element:
+            like_count = like_count_element.text
+            print(f"Like Count: {like_count}")
+        else:
+            like_count = "Maybe Private Account ⚠️ OR\n Post Deleted 🥸"
+            print("Like count element not found. Private account or structure changed.")
 
         # WORKING
         return like_count
@@ -56,6 +67,10 @@ def get_linkedin_post_likes(post_url):
 @app.route('/')
 def index():
     post_data = [
+        {
+         "name" : "jignect-technologies",
+         "postUrl" : "https://www.linkedin.com/posts/jignect-technologies_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140621156784549888-FtPm?utm_source=share&utm_medium=member_desktop"
+        },
         {
          "name" : "nikunj-patel",
          "postUrl" : "https://www.linkedin.com/posts/nikunj-patel-68b292150_jignecttechnologies-lifeatjignect-jignectadventure-activity-7140740425388118016-JYt2?utm_source=share&utm_medium=member_desktop"
