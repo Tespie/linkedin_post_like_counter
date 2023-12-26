@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)
 
 def get_linkedin_post_likes(post_url):
-    # print('post_url =',post_url)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
@@ -14,48 +13,20 @@ def get_linkedin_post_likes(post_url):
         response.raise_for_status()
 
         soup = BeautifulSoup(response.text, 'html.parser')
-        # print("soup =",soup)
-        # like_element = soup.find('button', {'aria-label': 'Like'})
-        # like_element = soup.find('button', {'class': 'social-details-social-counts__social-proof-fallback-number'})
+        page_title = soup.find('h1')
 
-        # gives count
-        # like_element = soup.find('span', {'class' :'social-details-social-counts__social-proof-fallback-number'}) 
+        like_count_element = soup.find('span', {'data-test-id' :'social-actions__reaction-count'})
 
-        # gives span having count vala span
-        # like_element = soup.find('span', {'class' :'social-details-social-counts__social-proof-container'}) 
+        if(page_title.text.__contains__("Post")):
+            # Find the element containing the like count
+            if like_count_element:
+                like_count = like_count_element.text
+                print(f"Like Count: {like_count}")
+            else:
+                like_count = "0"
 
-
-# SAMPLE
-#  <span class="font-normal ml-0.5" data-test-id="social-actions__reaction-count"> 118 </span>
-
-
-        # soup.find('p', attrs={"aria-hidden": "true"})
-        # soup.find('p', attrs={"class": "class_name", "id": "id_name"})
-
-
-        # print("like_elementt =",like_element)
-        # like_count = like_element.find('span', {'class': 'v-align-middle'}).text
-
-        # return like_count.strip()
-        # return '5000'
-
-
-        # return like_element
-        # return soup
-
-        # Find the element containing the like count
-        like_count_element = soup.find('span', {'class' :'font-normal ml-0.5'})
-
-        # # gives count from the parser - WORKING
-        # like_count = soup.find('span', {'class' :'font-normal ml-0.5'}).text 
-
-         # Check if the element is found
-        if like_count_element:
-            like_count = like_count_element.text
-            print(f"Like Count: {like_count}")
         else:
             like_count = "Maybe Private Account ⚠️ OR\n Post Deleted 🥸"
-            print("Like count element not found. Private account or structure changed.")
 
         # WORKING
         return like_count
@@ -63,6 +34,38 @@ def get_linkedin_post_likes(post_url):
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
         return None
+    
+def get_linkedin_post_comments(post_url):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
+    try:
+        response = requests.get(post_url, headers=headers)
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        page_title = soup.find('h1')
+
+        comment_count_element = soup.find('a', {'data-test-id' :'social-actions__comments'})
+
+        if(page_title.text.__contains__("Post")):
+            # Find the element containing the like count
+            if comment_count_element:
+                comment_count = comment_count_element.text
+                print(f"Comment Count: {comment_count}")
+            else:
+                comment_count = "0 Comment"
+
+        else:
+            comment_count = "Maybe Private Account ⚠️ OR\n Post Deleted 🥸"
+
+        # WORKING
+        return comment_count
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error: {e}")
+        return None
+
 
 @app.route('/')
 def index():
@@ -112,8 +115,8 @@ def index():
 
 
     like_counts = [get_linkedin_post_likes(data["postUrl"]) for data in post_data]
-    return render_template('index.html', post_data=post_data, like_counts=like_counts,zip = zip)
-    
+    comment_counts = [get_linkedin_post_comments(data["postUrl"]) for data in post_data]
+    return render_template('index.html', post_data=post_data, like_counts=like_counts,comment_counts=comment_counts,zip = zip)
 
 if __name__ == '__main__':
     app.run(debug=True)
