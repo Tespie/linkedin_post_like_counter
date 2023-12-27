@@ -92,8 +92,10 @@
         <!-- Logo Section -->
         <div class="text-center">
             <h1>Happening at </h1>
-            <img src="https://jignect.tech/wp-content/uploads/2023/02/oie_36heCoEoc4Hg.png" height="200px" alt="Logo"
+            <a href="https://jignect.tech/" target="_blank">
+                <img src="https://jignect.tech/wp-content/uploads/2023/02/oie_36heCoEoc4Hg.png" height="100px" alt="Logo"
                 class="logo">
+            </a>
         </div>
 
         <!-- Table Section -->
@@ -103,14 +105,16 @@
                     <th>Name</th>
                     <th>Post URL</th>
                     <th>Like Count</th>
+                    <th>Comment Count</th>
                 </tr>
             </thead>
             <tbody>
-                {% for data, like_count in zip(post_data, like_counts) %}
+                {% for data, like_count, comment_count in zip(post_data, like_counts, comment_counts) %}
                 <tr>
                     <td>{{ data["name"] }}</td>
                     <td><a href="{{ data['postUrl'] }}" target="_blank">Open {{ data['name'] }}'s LinkedIn post</a></td>
                     <td>{{ like_count }}</td>
+                    <td>{{comment_count}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
