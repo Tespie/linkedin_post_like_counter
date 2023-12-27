@@ -23,7 +23,7 @@
             height: 100vh;
             background: linear-gradient(45deg, #FF6B6B, #6B6BFF, #6BFF6B);
             background-size: 400% 400%;
-            animation: gradient 3s forwards;
+            animation: gradient 3s alternate;
             transition: background 1s ease-in-out;
         }
 
@@ -93,8 +93,8 @@
         <div class="text-center">
             <h1>Happening at </h1>
             <a href="https://jignect.tech/" target="_blank">
-                <img src="https://jignect.tech/wp-content/uploads/2023/02/oie_36heCoEoc4Hg.png" height="100px" alt="Logo"
-                class="logo">
+                <img src="https://jignect.tech/wp-content/uploads/2023/02/oie_36heCoEoc4Hg.png" height="100px"
+                    alt="Logo" class="logo">
             </a>
         </div>
 
@@ -104,8 +104,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Post URL</th>
-                    <th>Like Count</th>
-                    <th>Comment Count</th>
+                    <th>Likes</th>
+                    <th>Comments</th>
                     <th>Total</th>
                 </tr>
             </thead>
@@ -113,7 +113,7 @@
                 {% for data, post_reaction in zip(post_data, post_reactions) %}
                 <tr>
                     <td>{{ data["name"] }}</td>
-                    <td><a href="{{ data['postUrl'] }}" target="_blank">Open {{ data['name'] }}'s LinkedIn post</a></td>
+                    <td>Open <a href="{{ data['postUrl'] }}" target="_blank">{{ data['name'] }}</a>'s post</td>
                     <td>{{ post_reaction[0] }}</td>
                     <td>{{post_reaction[1]}}</td>
                     <td>{{ post_reaction[2] }}</td>
@@ -124,7 +124,7 @@
         </table>
 
         <!-- Footer Section -->
-        <h1 class="text-center">Streaming Partners: TEJAS and 2 secret Agents</h1>
+        <h1 class="text-center">Streaming Partners: TEJAS , RAJ Lunagariya & Krish 4</h1>
     </div>
 
     <!-- Bootstrap JS (already included in the head) -->
