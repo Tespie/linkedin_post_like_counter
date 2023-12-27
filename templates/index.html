@@ -106,15 +106,18 @@
                     <th>Post URL</th>
                     <th>Like Count</th>
                     <th>Comment Count</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                {% for data, like_count, comment_count in zip(post_data, like_counts, comment_counts) %}
+                {% for data, post_reaction in zip(post_data, post_reactions) %}
                 <tr>
                     <td>{{ data["name"] }}</td>
                     <td><a href="{{ data['postUrl'] }}" target="_blank">Open {{ data['name'] }}'s LinkedIn post</a></td>
-                    <td>{{ like_count }}</td>
-                    <td>{{comment_count}}</td>
+                    <td>{{ post_reaction[0] }}</td>
+                    <td>{{post_reaction[1]}}</td>
+                    <td>{{ post_reaction[2] }}</td>
+
                 </tr>
                 {% endfor %}
             </tbody>
